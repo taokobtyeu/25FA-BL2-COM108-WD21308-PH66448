@@ -5,7 +5,48 @@
 
 int main()
 {
-    printf("Hi there!\n");
+    {
+        char  Kytu = 'A';// chi 1 ki tu - nhay 'a' chi 1 ki tu, nha" nhieu ki tu
+        //  string - "string.h"
+        char MAngKyTu[10] = { 'A','n','h' };
+        for (int i = 0; i < 3; i++)
+        {
+
+            scanf(" %c", &MAngKyTu[i]);
+            // dung IF cho cac ki tu dac biet, Dung vong lap
+            if (MAngKyTu[i] == '.')
+            {
+                break;
+            }
+        }
+        //gets thay the cho for
+        //gets(MangKyTu);k dung dc voi vsua
+        /*for (int i = 0; i < 3; i++)
+        {
+            scanf("%c", MAngKyTu[i]);
+        }*/
+        puts(MAngKyTu);
+
+
+        int array[2][3];
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                printf("Mang tai vi tri[%d][%d]= ", i, j);
+                scanf("%d", &array[i][j]);
+            }
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                printf("%d, ", array[i][j]);
+
+            }
+            printf("\n");
+        }
+    }
 }
 
 // Debug/Run chuong trinh: bam "F5" hoac "Debug > Start Debugging" tren menu
