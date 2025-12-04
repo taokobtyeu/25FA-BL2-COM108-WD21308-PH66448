@@ -50,32 +50,102 @@ void timUocBoiChung() {
 
 // ======================= CHỨC NĂNG 3 =======================
 void tinhTienKaraoke() {
-    int gio;
-    printf("Nhap so gio hat: ");
-    scanf("%d", &gio);
+    int gioBD, gioKT;
+    int soGio;
+    float tienCoBan = 0;
+    float tongTien = 0;
 
-    int tien = 0;
+    // ===== NHAP DU LIEU =====
+    printf("Nhap gio bat dau (12 - 23): ");
+    scanf("%d", &gioBD);
 
-    if (gio <= 3) tien = gio * 50000;           //nếu <=3 giờ thi tinh 50k/1gio
-    else tien = 3 * 50000 + (gio - 3) * 30000;  //
+    printf("Nhap gio ket thuc (12 - 23): ");
+    scanf("%d", &gioKT);
 
-    printf("Tien karaoke: %d VND\n", tien);
+    // ===== KIEM TRA HOP LE =====
+    if (gioBD < 12 || gioBD > 23) {
+        printf("Gio bat dau khong hop le!\n");
+        return 0;
+    }
+
+    if (gioKT < 12 || gioKT > 23) {
+        printf("Gio ket thuc khong hop le!\n");
+        return 0;
+    }
+
+    if (gioKT <= gioBD) {
+        printf("Gio ket thuc phai lon hon gio bat dau!\n");
+        return 0;
+    }
+
+    // ===== TINH SO GIO =====
+    soGio = gioKT - gioBD;
+
+    // ===== TINH TIEN CO BAN =====
+    if (soGio <= 3) {
+        // 3 giờ đầu giá 150.000/giờ
+        tienCoBan = soGio * 150000;
+    }
+    else {
+        // 3 giờ đầu
+        tienCoBan = 3 * 150000;
+        // Các giờ sau giảm 30% → còn 105.000/giờ
+        tienCoBan += (soGio - 3) * (150000 * 0.7);
+    }
+
+    // ===== GIAM THEM 10% NEU BAT DAU 14–17 =====
+    if (gioBD >= 14 && gioBD <= 17) {
+        tongTien = tienCoBan * 0.9; // giảm 10%
+    }
+    else {
+        tongTien = tienCoBan;
+    }
+
+    // ===== HIEN THI KET QUA =====
+    printf("\n===== HOA DON KARAOKE =====\n");
+    printf("Gio bat dau: %d\n", gioBD);
+    printf("Gio ket thuc: %d\n", gioKT);
+    printf("Tong so gio hat: %d\n", soGio);
+    printf("Tien thanh toan: %.0f VND\n", tongTien);
+
+    return 0;
 }
+  
+
 
 // ======================= CHỨC NĂNG 4 =======================
 void tinhTienDien() {
-    int so;
-    printf("Nhap so kWh: ");
-    scanf("%d", &so);
-
-    int tien = 0;
-
-    if (so <= 50) tien = so * 1800;
-    else if (so <= 100) tien = 50 * 1800 + (so - 50) * 2300;
-    else tien = 50 * 1800 + 50 * 2300 + (so - 100) * 2800;
-
-    printf("Tien dien: %d VND\n", tien);
+    int i = 1;
+    // vong lap
+    while (1 == 1)
+    {
+        printf("Tinh tien dien\n");
+        int so_kwh;
+        float tien = 0;
+        printf("Nhap so kWh su dung trong thang: ");
+        scanf("%d", &so_kwh);
+        if (so_kwh <= 50) {
+            tien = so_kwh * 1.678;
+        }
+        else if (so_kwh <= 100) {
+            tien = 50 * 1.678 + (so_kwh - 50) * 1.734;
+        }
+        else if (so_kwh <= 200) {
+            tien = 50 * 1.678 + 50 * 1.734 + (so_kwh - 100) * 2.014;
+        }
+        else if (so_kwh <= 300) {
+            tien = 50 * 1.678 + 50 * 1.734 + 100 * 2.014 + (so_kwh - 200) * 2.536;
+        }
+        else if (so_kwh <= 400) {
+            tien = 50 * 1.678 + 50 * 1.734 + 100 * 2.014 + 100 * 2.536 + (so_kwh - 300) * 2.834;
+        }
+        else {
+            tien = 50 * 1.678 + 50 * 1.734 + 100 * 2.014 + 100 * 2.536 + 100 * 2.834 + (so_kwh - 400) * 2.927;
+        }
+        printf("So tien phai dong la: %f VND\n", tien);
+    }
 }
+
 
 // ======================= CHỨC NĂNG 5 =======================
 void doiTien() {
@@ -83,7 +153,7 @@ void doiTien() {
     printf("Nhap so tien can doi: ");
     scanf("%d", &money);
 
-    int menhGia[] = { 500000, 200000, 100000, 50000, 20000, 10000 };
+    int menhGia[] = { 500000, 200000, 100000, 50000, 20000, 10000, 5000, 2000 };
     int i;
 
     for (i = 0; i < 6; i++) {
@@ -97,42 +167,68 @@ void doiTien() {
 
 // ======================= CHỨC NĂNG 6 =======================
 void tinhLaiSuatVay() {
-    double goc, lai;
-    int thang;
+    double tienVay, laiSuat = 0.05;
+    int soThang = 12;
 
-    printf("Nhap so tien vay: ");
-    scanf("%lf", &goc);
-    printf("Nhap lai suat (%%/thang): ");
-    scanf("%lf", &lai);
-    printf("Nhap so thang: ");
-    scanf("%d", &thang);
+    printf("Nhap so tien muon vay: ");
+    scanf("%lf", &tienVay);
 
-    double lsThang = goc * lai / 100;
-    double tong = goc + lsThang * thang;
+    // Công thức trả góp đều
+    double tu = laiSuat * pow(1 + laiSuat, soThang);
+    double mau = pow(1 + laiSuat, soThang) - 1;
+    double tienTraThang = tienVay * (tu / mau);
+    double tongTra = tienTraThang * soThang;
+    double tongLai = tongTra - tienVay;
 
-    printf("Tien lai moi thang: %.0lf VND\n", lsThang);
-    printf("Tong tien phai tra: %.0lf VND\n", tong);
+    printf("\n------ KET QUA ------\n");
+    printf("Tien vay: %.0f VND\n", tienVay);
+    printf("Tien phai tra moi thang: %.0f VND\n", tienTraThang);
+    printf("Tong tien phai tra: %.0f VND\n", tongTra);
+    printf("Tong lai phai tra: %.0f VND\n", tongLai);
+
+    return 0;
 }
 
 // ======================= CHỨC NĂNG 7 =======================
 void vayMuaXe() {
-    double xe, traTruoc, lai;
-    int thang;
+    int i = 1;
+    // vong lap
+    while (i == 1)
+    {
+        int percent;
+        printf("Nhap so phan tram vay toi da (0-100): ");
+        scanf("%d", &percent);
 
-    printf("Gia xe: ");
-    scanf("%lf", &xe);
-    printf("Tra truoc: ");
-    scanf("%lf", &traTruoc);
-    printf("Lai suat %%/thang: ");
-    scanf("%lf", &lai);
-    printf("So thang vay: ");
-    scanf("%d", &thang);
+        if (percent < 0 || percent > 100) {
+            printf("Phan tram vay phai tu 0 den 100.\n");
+            return;
+        }
+        double giaxe = 500000000.0;
+        double P = giaxe * (percent / 100.0); //tien vay
+        double tratruoc = giaxe - P; //tra lan dau
 
-    double vay = xe - traTruoc;
-    double traHangThang = vay / thang + vay * lai / 100;
+        double laisuatnam = 0.072;
+        int nam = 24;
+        int thang = nam * 12;
+        double r = laisuatnam / 12.0;
 
-    printf("So tien vay: %.0lf VND\n", vay);
-    printf("Tra moi thang: %.0lf VND\n", traHangThang);
+        /* Tang truong lai suat theo thang tính (1 + r)^thang*/ // lai suat kep
+        int i;
+        double pow1 = 1.0;
+        for (i = 0; i < thang; i++) {
+            pow1 *= (1 + r);
+        }
+        // tien tra hang thang phai cha (PMT)
+        double PMT = P * (r * pow1) / (pow1 - 1);
+
+        printf("So tien phai tra lan dau: %.0f VNÐ\n", tratruoc);
+        printf("So tien phai tra hang thang cho den het ky han vay: %.0f VNÐ\n", PMT);
+
+        printf("Ban vua nhap:%d\n", i);
+        printf("Ban co muon thuc hien tiep hay khong[1-Co|khac-Khong]: ");
+        scanf("%d", &i);
+        system("cls");//clear screen
+    }
 }
 
 // ======================= CHỨC NĂNG 8 =======================
@@ -190,7 +286,8 @@ void gameFPOLY() {
     printf("Nhap so (1-15): ");
     scanf("%d", &num);
 
-    if (num == 2) printf("Trung giai!\n");
+    if (num == 2) printf("Trung giai nhat!\n");
+    if (num == 1) printf("Trung giai nhi!\n");
     else printf("Chuc may man lan sau.\n");
 }
 
