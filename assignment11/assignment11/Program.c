@@ -13,7 +13,7 @@ void kiemTraSoNguyen() {
         printf("%d la so nguyen.\n", n);
     }
     else {
-        printf("Khong phai so nguyen.\n");
+        printf("Khong phai so nguyen.\n");//mọi số nhập vào đều là số nguyên 
     }
 }
 
@@ -56,8 +56,8 @@ void tinhTienKaraoke() {
 
     int tien = 0;
 
-    if (gio <= 3) tien = gio * 50000;
-    else tien = 3 * 50000 + (gio - 3) * 30000;
+    if (gio <= 3) tien = gio * 50000;           //nếu <=3 giờ thi tinh 50k/1gio
+    else tien = 3 * 50000 + (gio - 3) * 30000;  //
 
     printf("Tien karaoke: %d VND\n", tien);
 }
@@ -136,31 +136,54 @@ void vayMuaXe() {
 }
 
 // ======================= CHỨC NĂNG 8 =======================
-void sapXepSinhVien() {
-    int n;
-    printf("Nhap so luong sinh vien: ");
-    scanf("%d", &n);
+void sapXepSinhVien() 
+        {
+            int n;
+            printf("Nhap so luong sinh vien: ");
+            scanf("%d", &n);
+            getchar();
 
-    int a[1000];
-    printf("Nhap danh sach diem:\n");
-    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+            char hoten[100][50];
+            float diem[100];
 
-    // Sắp xếp tăng dần
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (a[i] > a[j]) {
-                int temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
+
+            for (int i = 0; i < n; i++) {
+                printf("\nNhap ho ten sinh vien thu %d: ", i + 1);
+                fgets(hoten[i], sizeof(hoten[i]), stdin);
+                hoten[i][strcspn(hoten[i], "\n")] = '\0';
+
+                printf("Nhap diem: ");
+                scanf("%f", &diem[i]);
+                getchar();
             }
+            for (int i = 0; i < n - 1; i++) {
+                for (int j = i + 1; j < n; j++) {
+                    if (diem[i] < diem[j]) {
+                        float tmp = diem[i];
+                        diem[i] = diem[j];
+                        diem[j] = tmp;
+
+                        char tmpName[50];
+                        strcpy(tmpName, hoten[i]);
+                        strcpy(hoten[i], hoten[j]);
+                        strcpy(hoten[j], tmpName);
+                    }
+                }
+            }
+            printf("\nDANH SACH SINH VIEN \n");
+            printf("%-25s %-10s %-15s\n", "Ho ten", "Diem", "Hoc luc");
+            for (int i = 0; i < n; i++) {
+                char hocluc[20];
+                if (diem[i] >= 9.0) strcpy(hocluc, "Xuat sac");
+                else if (diem[i] >= 8.0) strcpy(hocluc, "Gioi");
+                else if (diem[i] >= 6.5) strcpy(hocluc, "Kha");
+                else if (diem[i] >= 5.0) strcpy(hocluc, "Trung binh");
+                else strcpy(hocluc, "Yeu");
+
+                printf("%-25s %-10.2f %-15s\n", hoten[i], diem[i], hocluc);
+            }
+            return 0;
         }
-    }
-
-    printf("Danh sach sau khi sap xep: ");
-    for (int i = 0; i < n; i++) printf("%d ", a[i]);
-    printf("\n");
-}
-
 // ======================= CHỨC NĂNG 9 =======================
 void gameFPOLY() {
     int num;
